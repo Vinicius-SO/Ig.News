@@ -5,9 +5,8 @@ import { signIn, signOut, useSession } from "next-auth/react"
 import styles from './styles.module.scss'
 
 export function SingInButton (){
-    const { data: session, status } = useSession()
-    console.log(status)
-    return status === 'authenticated' ? (
+    const { data: session } = useSession()
+    return session ? (
         <button
          className={styles.singInButton}
          onClick={()=>signOut()}
@@ -22,8 +21,8 @@ export function SingInButton (){
         className={styles.singInButton}
         onClick={()=>signIn('github')}
         >
-        <FaGithub color='#eba417'/>
-        Sing in With Github
+            <FaGithub color='#eba417'/>
+            Sing in With Github
     </button>
     )
 }
