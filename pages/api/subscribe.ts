@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { stripe } from "../../services/stripe";
 import { getSession } from 'next-auth/react'
 
-export default async(req:NextApiRequest,res:NextApiResponse){
+export default async(req:NextApiRequest,res:NextApiResponse)=>{
     if (req.method === 'POST'){
 
         const session = await getSession({ req })
@@ -24,6 +24,7 @@ export default async(req:NextApiRequest,res:NextApiResponse){
             success_url: process.env.STRIPE_SUCESS_URL,
             cancel_url: process.env.SRIPE_CANCEL_URL 
         })
+        return res.status(200).json({ sessionId: stripeCheckoutSession.id })
     }else{
         res.setHeader('Allow', 'POST')
         res.status(405).end('Method not allowed')
