@@ -5,6 +5,6 @@ This's an project made in class with Diego Fernandes to explore all the key feat
 
 ## The aplication
 
-The aplication consists in a blog like medium, but with signature. This feature is used to understand how to use stripe for payments. The app consistes in creating posts to your profile, and interact with your followers. 
+This is an app that consists in a blog like medium, but with signature. This feature is used to understand how to use stripe for payments. The app consistes in creating posts to your profile, and interact with your followers. 
 
 The following step are based in creating an interface that the user is capable to create posts without any knowledge of html or css.
