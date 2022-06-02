@@ -20,6 +20,9 @@ export const config = {
         bodyParser: false
     }
 }
+const relevantEvents = new Set([
+    'checkout.session.completed'
+])
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
     if (req.method === 'POST'){
@@ -34,7 +37,13 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
             return res.status(400).send(`webhook error: ${err.message}`);
         }
         
-        res.status(200).json({ ok: true })
+        const { type } = event;
+
+        if(relevantEvents.has(type)){
+            console.log("Evento recebido", event)
+        }
+
+        res.json({ receive: true })
     }else{
         res.setHeader('Allow', 'POST')
         res.status(405).end('Method not allowed')
