@@ -6,12 +6,12 @@ import { stripe } from '../../../services/stripe';
 export async function saveSubscription(
     subscriptionId:string,
     customerId:string,
-    createAction = false
+    createAction = false,
 ){
     const userRef = await fauna.query(
         q.Select(
             "ref",
-            q.Get(
+            q.Get( 
                 q.Match(
                     q.Index('user_by_stripe_customer_id'),
                     customerId
