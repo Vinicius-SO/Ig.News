@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router';
+import { ActiveLink } from '../ActiveLink';
 
 import { SingInButton } from '../SingInButton/SingInButton';
 
@@ -13,12 +14,12 @@ export function Header() {
             <div className={styles.headerContent}>
                 <img src="/images/logo.svg" alt="ig.news" />
                 <nav>
-                    <Link  href='/'>
-                        <a className={asPath === '/' ? styles.active : ''}>Home</a>
-                    </Link>
-                    <Link href='/posts'>
-                        <a className={asPath === '/posts' ? styles.active : ''}>Posts</a>
-                    </Link>
+                    <ActiveLink activeCLassName={styles.active} href='/'>
+                        <a>Home</a>
+                    </ActiveLink>
+                    <ActiveLink activeCLassName={styles.active} href='/posts'>
+                        <a>Posts</a>
+                    </ActiveLink>
                 </nav>
                 <SingInButton></SingInButton>
             </div>
