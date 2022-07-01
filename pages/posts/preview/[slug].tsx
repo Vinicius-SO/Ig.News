@@ -1,12 +1,14 @@
 import Head from "next/head"
 import { GetStaticProps } from "next"
-import { getSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import {RichText} from 'prismic-dom'
 
 import { getPrismicClient } from "../../../services/prismic"
 
 import styles from '../post.module.scss'
 import Link from "next/link"
+import { useEffect } from "react"
+import { useRouter } from "next/router"
 
 interface PostPreviewProps {
     post:{
@@ -18,6 +20,16 @@ interface PostPreviewProps {
 }
 
 export default function PostPreview({post}:PostPreviewProps){
+
+    const {status, data:session} = useSession()
+
+    const router = useRouter()
+
+    useEffect(()=>{
+        if(status === 'authenticated'){
+            router.push('/posts/what-is-clean-code')
+        }
+    },[status])
     return(
         <>
             <Head>
@@ -48,7 +60,6 @@ export const getStaticPaths = () => {
 }
 
 export const getStaticProps: GetStaticProps= async ({ params }) =>{
-    const session = await getSession()
     const {slug} = params;
 
 
@@ -67,6 +78,7 @@ export const getStaticProps: GetStaticProps= async ({ params }) =>{
         })
     }
     return{
-        props:{post}
+        props:{post},
+        redirect: 60*30, // 30 minutes
     }
 }
